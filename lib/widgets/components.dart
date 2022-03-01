@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class H2 extends StatelessWidget {
   final String text;
@@ -36,15 +37,16 @@ class H4 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
         padding: EdgeInsets.symmetric(vertical: 10),
-        child: Text(
-          text,
-          style: const TextStyle(
-            fontWeight: FontWeight.w400,
+        child: Text(text,
+            style: GoogleFonts.montserrat(
+                fontWeight: FontWeight
+                    .bold) /*const TextStyle(
+            fontWeight: FontWeight.w600,
             fontSize: 30,
             color: Colors.black,
-            fontFamily: "EtnaSS",
-          ),
-        ));
+            fontFamily: ,
+          ),*/
+            ));
   }
 }
 

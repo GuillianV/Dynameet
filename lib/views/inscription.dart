@@ -39,6 +39,13 @@ class _InscriptionState extends State<Inscription> {
       mainAxisAlignment: MainAxisAlignment.center,
       mainAxisSize: MainAxisSize.max,
       children: [
+        const SizedBox(
+          width: 100,
+          child: const Image(image: AssetImage("assets/images/logo_crop.png")),
+        ),
+        const SizedBox(
+          height: 100,
+        ),
         H4(text: "Je cherche..."),
         ButtonBasic(
           text: "... une entreprise",
