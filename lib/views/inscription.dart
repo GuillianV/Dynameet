@@ -4,6 +4,8 @@ import 'package:dynameet/widgets/button.dart';
 import 'package:dynameet/widgets/components.dart';
 import 'package:flutter/material.dart';
 
+import 'landing.dart';
+
 class Inscription extends StatefulWidget {
   Inscription({Key? key, this.step}) : super(key: key);
 
@@ -19,6 +21,11 @@ class _InscriptionState extends State<Inscription> {
       TextEditingController(text: "tt");
   TextEditingController passwordController = TextEditingController(text: "tt");
 
+
+  bool isEtudiant = false;
+  bool isCompany = false;
+   Color bg = Color(0xffFFA857);
+
   StepManager stepManager = StepManager(children: []);
 
   @override
@@ -33,6 +40,7 @@ class _InscriptionState extends State<Inscription> {
   }
 
   Widget step1(BuildContext context) {
+   
     return CustomPagePadding(
         child: Column(
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -42,16 +50,18 @@ class _InscriptionState extends State<Inscription> {
         H4(text: "Je cherche..."),
         ButtonBasic(
           text: "... une entreprise",
+          color:  bg,
           pressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => Inscription()));
+               bg =  Colors.black54;
+           
           },
         ),
         ButtonBasic(
           text: "... un alternant",
+          color:Color(0xffFFA857),
           pressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => Inscription()));
+
+
           },
         )
       ],
@@ -110,14 +120,14 @@ class _InscriptionState extends State<Inscription> {
           centerTitle: true,
           elevation: 0,
           leading: IconButton(
-            icon: Icon(Icons.arrow_back),
+            icon: Icon(Icons.arrow_back,color: Colors.black87,),
             onPressed: () {
               setState(() {
                 if (stepManager.getStep() == 0) {
                   //Navigator.pop(context);
-                  /* Navigator.push(
+                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => HomePage()),
+                    MaterialPageRoute(builder: (context) => const Landing(title: 'Dynameet')));/*
                   ).then((_) {
                     setState(() {});
                   });*/
@@ -136,10 +146,8 @@ class _InscriptionState extends State<Inscription> {
                   (stepManager.step + 1).toString() +
                   "/" +
                   stepManager.children.length.toString()),
-          CustomButton(
-              text: "Suivant",
-              background: Colors.black87,
-              onPress: () {
+
+          ButtonBasic(text: "Suivant", height: 50,color: Color(0xffFFA857),pressed: () {
                 setState(() {
                   stepManager.next(callback: () {
                     if (_isStr(nameController.text) &&
@@ -152,6 +160,7 @@ class _InscriptionState extends State<Inscription> {
                   });
                 });
               })
+
         ]));
   }
 
