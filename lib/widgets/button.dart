@@ -14,26 +14,27 @@ class _ButtonBasicState extends State<ButtonBasic> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      child: RawMaterialButton(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text(widget.text,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w400,
-                    fontSize: 20,
-                    color: Colors.white,
-                    fontFamily: "EtnaSS",
-                  ))
-            ],
+        child: RawMaterialButton(
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(widget.text,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 20,
+                      color: Colors.white,
+                      fontFamily: "EtnaSS",
+                    ))
+              ],
+            ),
           ),
+          onPressed: widget.pressed,
+          fillColor: const Color(0xffFFA857),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
         ),
-        onPressed: widget.pressed,
-        fillColor: const Color(0xffFFA857),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-      ),
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-    );
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+      )
+    ;
   }
 }
