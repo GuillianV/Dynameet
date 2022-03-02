@@ -1,15 +1,14 @@
 import 'package:dynameet/widgets/button.dart';
 import 'package:dynameet/widgets/button_icon.dart';
 import 'package:flutter/material.dart';
-class Landing extends StatefulWidget {
-  const Landing({Key? key, required this.title}) : super(key: key);
-  final String title;
+class SwipePage extends StatefulWidget {
+  const SwipePage({Key? key,}) : super(key: key);
 
   @override
-  State<Landing> createState() => _LandingState();
+  State<SwipePage> createState() => _SwipePageState();
 }
 
-class _LandingState extends State<Landing> {
+class _SwipePageState extends State<SwipePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

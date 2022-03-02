@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:dynameet/views/swipe.dart';
 import 'package:dynameet/widgets/button.dart';
 import 'package:dynameet/widgets/components.dart';
 import 'package:flutter/material.dart';
@@ -125,18 +126,9 @@ class _InscriptionState extends State<Inscription> {
   Widget step3(BuildContext context) {
     return CustomPagePadding(
         child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        H4(text: "4. Ajouter un mot de passe"),
-        Description(
-            text:
-                "Le mot de passe sera demandé pour modifier l'objet et donc pouvoir se l'attribuer. Il permet de prouver que c'est votre objet"),
-        Padding(
-            padding: EdgeInsets.only(top: 50),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [],
-            ))
+        H4(text: "Ouué"),
+        
       ],
     ));
   }
@@ -149,7 +141,7 @@ class _InscriptionState extends State<Inscription> {
           title: stepManager.step != 1
               ? Container()
               : Row(children: [
-                  Padding(
+                  const Padding(
                       padding: EdgeInsets.only(right: 20),
                       child: SizedBox(
                         width: 50,
@@ -188,9 +180,7 @@ class _InscriptionState extends State<Inscription> {
         ),
         body: stepManager.getActual(),
         bottomSheet: Padding(padding: EdgeInsets.only(bottom: 0.0)),
-        floatingActionButton: stepManager.step != 1
-            ? Container()
-            : Footer(children: [
+        floatingActionButton:  Footer(children: [
                 H4(
                     text: (stepManager.step + 1).toString() +
                         "/" +
@@ -203,11 +193,12 @@ class _InscriptionState extends State<Inscription> {
                     pressed: () {
                       setState(() {
                         stepManager.next(callback: () {
-                          if (1 == 1) {
-                          } else {
+                          if (stepManager.step == 2) {
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>SwipePage()));
+                          } /*else {
                             errorDialog(context, "Erreur",
                                 "Tous les champs ne sont pas remplis");
-                          }
+                          }*/
                         });
                       });
                     })
