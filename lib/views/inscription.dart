@@ -16,10 +16,7 @@ class Inscription extends StatefulWidget {
 }
 
 class _InscriptionState extends State<Inscription> {
-  TextEditingController nameController = TextEditingController(text: "tt");
-  TextEditingController descriptionController =
-      TextEditingController(text: "tt");
-  TextEditingController passwordController = TextEditingController(text: "tt");
+  TextEditingController etu_name = TextEditingController();
 
   bool isEtudiant = false;
   bool isCompany = false;
@@ -95,10 +92,32 @@ class _InscriptionState extends State<Inscription> {
 
     return CustomPagePadding(
         child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        H4(text: "3. Ajouter des photos de l'objet"),
-        Padding(padding: EdgeInsets.only(top: 50), child: Center()),
+        const SizedBox(
+          height: 50,
+        ),
+        TextInput(
+          controller: etu_name,
+          hint: "Prénom",
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        TextInput(
+          controller: etu_name,
+          hint: "Nom",
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        TextInput(
+          controller: etu_name,
+          hint: "Date de naissance",
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        TextArea(hint: "Biographie", controller: etu_name)
       ],
     ));
   }
@@ -116,13 +135,7 @@ class _InscriptionState extends State<Inscription> {
             padding: EdgeInsets.only(top: 50),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Description(text: "Mot de passe"),
-                TextInput(
-                  hint: "Mot de passe",
-                  controller: passwordController,
-                ),
-              ],
+              children: [],
             ))
       ],
     ));
@@ -186,13 +199,11 @@ class _InscriptionState extends State<Inscription> {
                     text: "Suivant",
                     height: 50,
                     width: 200,
-                    color: Color(0xffFFA857),
+                    color: Color(0xff1F3C7C),
                     pressed: () {
                       setState(() {
                         stepManager.next(callback: () {
-                          if (_isStr(nameController.text) &&
-                              _isStr(descriptionController.text) &&
-                              _isStr(passwordController.text)) {
+                          if (1 == 1) {
                           } else {
                             errorDialog(context, "Erreur",
                                 "Tous les champs ne sont pas remplis");
