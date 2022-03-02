@@ -39,8 +39,9 @@ class H4 extends StatelessWidget {
         padding: EdgeInsets.symmetric(vertical: 10),
         child: Text(text,
             style: GoogleFonts.montserrat(
-                fontWeight: FontWeight
-                    .bold, fontSize: 30) /*const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize:
+                    30) /*const TextStyle(
             fontWeight: FontWeight.w600,
             fontSize: 30,
             color: Colors.black,
@@ -119,7 +120,7 @@ class AppBarText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(text,
         style: GoogleFonts.montserrat(
-            color: Colors.black87, fontWeight: FontWeight.bold));
+            color: Colors.black87, fontWeight: FontWeight.bold, fontSize: 30));
   }
 }
 

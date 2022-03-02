@@ -21,7 +21,6 @@ class _InscriptionState extends State<Inscription> {
       TextEditingController(text: "tt");
   TextEditingController passwordController = TextEditingController(text: "tt");
 
-
   bool isEtudiant = false;
   bool isCompany = false;
 
@@ -39,7 +38,6 @@ class _InscriptionState extends State<Inscription> {
   }
 
   Widget step1(BuildContext context) {
-   
     return CustomPagePadding(
         child: Column(
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -62,10 +60,9 @@ class _InscriptionState extends State<Inscription> {
         ),
         ButtonBasic(
           text: "... une entreprise",
-          color:Color(0xff1F3C7C),
-          height: 50,
+          color: Color(0xff1F3C7C),
+          height: 60,
           pressed: () {
-            print("next");
             setState(() {
               stepManager.next();
             });
@@ -76,10 +73,9 @@ class _InscriptionState extends State<Inscription> {
         ),
         ButtonBasic(
           text: "... un alternant",
-          color:Color(0xff1F3C7C),
-          height: 50,
+          color: Color(0xff1F3C7C),
+          height: 60,
           pressed: () {
-            print("next");
             setState(() {
               stepManager.next();
             });
@@ -137,52 +133,74 @@ class _InscriptionState extends State<Inscription> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.transparent,
-          title: stepManager.step != 1 ?  Container() : AppBarText(text: "Inscription"),
-          centerTitle: true,
+          title: stepManager.step != 1
+              ? Container()
+              : Row(children: [
+                  Padding(
+                      padding: EdgeInsets.only(right: 20),
+                      child: SizedBox(
+                        width: 50,
+                        child: Image(
+                            image: AssetImage("assets/images/logo_crop.png")),
+                      )),
+                  AppBarText(text: "Inscription"),
+                ]),
+          //centerTitle: true,
           elevation: 0,
-          leading: Container()/*IconButton(
-            icon: Icon(Icons.arrow_back,color: Colors.black87,),
-            onPressed: () {
-              setState(() {
-                if (stepManager.getStep() == 0) {
-                  //Navigator.pop(context);
-                   Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const Landing(title: 'Dynameet')));/*
-                  ).then((_) {
-                    setState(() {});
-                  });*/
-                } else {
-                  stepManager.previous();
-                }
-              });
-            },
-          )*/,
+          leading: stepManager.step != 1
+              ? Container()
+              : IconButton(
+                  icon: Icon(
+                    Icons.arrow_back_ios,
+                    color: Colors.black87,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      if (stepManager.getStep() == 0) {
+                        //Navigator.pop(context);
+                        Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const Landing(title: 'Dynameet')))
+                            .then((_) {
+                          setState(() {});
+                        });
+                      } else {
+                        stepManager.previous();
+                      }
+                    });
+                  },
+                ),
         ),
         body: stepManager.getActual(),
         bottomSheet: Padding(padding: EdgeInsets.only(bottom: 0.0)),
-        floatingActionButton: stepManager.step != 1 ?  Container() : Footer(children: [
-          H4(
-              text: "Etape " +
-                  (stepManager.step + 1).toString() +
-                  "/" +
-                  stepManager.children.length.toString()),
-
-          ButtonBasic(text: "Suivant", height: 50,color: Color(0xffFFA857),pressed: () {
-                setState(() {
-                  stepManager.next(callback: () {
-                    if (_isStr(nameController.text) &&
-                        _isStr(descriptionController.text) &&
-                        _isStr(passwordController.text)) {
-                    } else {
-                      errorDialog(context, "Erreur",
-                          "Tous les champs ne sont pas remplis");
-                    }
-                  });
-                });
-              })
-
-        ]));
+        floatingActionButton: stepManager.step != 1
+            ? Container()
+            : Footer(children: [
+                H4(
+                    text: (stepManager.step + 1).toString() +
+                        "/" +
+                        stepManager.children.length.toString()),
+                ButtonBasic(
+                    text: "Suivant",
+                    height: 50,
+                    width: 200,
+                    color: Color(0xffFFA857),
+                    pressed: () {
+                      setState(() {
+                        stepManager.next(callback: () {
+                          if (_isStr(nameController.text) &&
+                              _isStr(descriptionController.text) &&
+                              _isStr(passwordController.text)) {
+                          } else {
+                            errorDialog(context, "Erreur",
+                                "Tous les champs ne sont pas remplis");
+                          }
+                        });
+                      });
+                    })
+              ]));
   }
 
   bool _isStr(String value) {
