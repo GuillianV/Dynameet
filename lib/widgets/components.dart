@@ -134,11 +134,18 @@ class TextInput extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextField(
       controller: controller,
+      style: GoogleFonts.montserrat(
+          fontWeight: FontWeight.bold, fontSize: 20, color: Color(0xFFB3B3B3)),
       decoration: InputDecoration(
-          border:
-              OutlineInputBorder(borderSide: BorderSide(color: Colors.teal)),
-          hintText: hint,
-          suffixStyle: const TextStyle(color: Colors.green)),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide(color: Color(0xFFB3B3B3), width: 2.0),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide(color: Color(0xFFB3B3B3), width: 2.0),
+          ),
+          hintText: hint),
     );
   }
 }
@@ -155,13 +162,20 @@ class TextArea extends StatelessWidget {
       controller: controller,
       keyboardType: TextInputType.multiline,
       textInputAction: TextInputAction.newline,
-      minLines: 2,
-      maxLines: 10,
+      minLines: 10,
+      maxLines: 20,
+      style: GoogleFonts.montserrat(
+          fontWeight: FontWeight.bold, fontSize: 20, color: Color(0xFFB3B3B3)),
       decoration: InputDecoration(
-          border:
-              OutlineInputBorder(borderSide: BorderSide(color: Colors.teal)),
-          hintText: hint,
-          suffixStyle: const TextStyle(color: Colors.green)),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide(color: Color(0xFFB3B3B3), width: 2.0),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide(color: Color(0xFFB3B3B3), width: 2.0),
+          ),
+          hintText: hint),
     );
   }
 }
