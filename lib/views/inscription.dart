@@ -20,7 +20,6 @@ class _InscriptionState extends State<Inscription> {
   TextEditingController etu_name = TextEditingController();
 
   bool isEtudiant = false;
-  bool isCompany = false;
 
   StepManager stepManager = StepManager(children: []);
 
@@ -47,7 +46,7 @@ class _InscriptionState extends State<Inscription> {
         ),
         const SizedBox(
           width: 100,
-          child: const Image(image: AssetImage("assets/images/logo_crop.png")),
+          child: Image(image: AssetImage("assets/images/logo_crop.png")),
         ),
         const SizedBox(
           height: 100,
@@ -62,6 +61,8 @@ class _InscriptionState extends State<Inscription> {
           height: 60,
           pressed: () {
             setState(() {
+              print("une entreprise");
+              isEtudiant = true;
               stepManager.next();
             });
           },
@@ -75,6 +76,7 @@ class _InscriptionState extends State<Inscription> {
           height: 60,
           pressed: () {
             setState(() {
+              isEtudiant = true;
               stepManager.next();
             });
           },
@@ -84,51 +86,83 @@ class _InscriptionState extends State<Inscription> {
   }
 
   Widget step2(BuildContext context) {
-    void _choose() {
-      /* Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => CameraApp()),
-      );*/
-    }
+    return isEtudiant
+        ? CustomPagePadding(
+            child: Column(
+            children: [
+              const SizedBox(
+                height: 50,
+              ),
+              TextInput(
+                controller: etu_name,
+                hint: "Prénom",
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              TextInput(
+                controller: etu_name,
+                hint: "Nom",
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              TextInput(
+                controller: etu_name,
+                hint: "Date de naissance",
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              TextArea(hint: "Biographie", controller: etu_name)
+            ],
+          ))
+        : ButtonBasic(
+            text: "test",
+            pressed: () {
+              print(isEtudiant);
+            },
+            color: Colors.red);
+  }
 
+  Widget step3(BuildContext context) {
+    print("build step");
     return CustomPagePadding(
         child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SizedBox(
           height: 50,
         ),
         TextInput(
           controller: etu_name,
-          hint: "Prénom",
+          hint: "Mon dernier diplôme",
         ),
         const SizedBox(
           height: 10,
         ),
         TextInput(
           controller: etu_name,
-          hint: "Nom",
+          hint: "Post recherché",
         ),
         const SizedBox(
-          height: 10,
+          height: 20,
         ),
-        TextInput(
-          controller: etu_name,
-          hint: "Date de naissance",
+        H3(
+          text: "Mes éxperiences",
+        ),
+        TextAdd(
+          text: "+ Ajouter",
         ),
         const SizedBox(
-          height: 10,
+          height: 30,
         ),
-        TextArea(hint: "Biographie", controller: etu_name)
-      ],
-    ));
-  }
-
-  Widget step3(BuildContext context) {
-    return CustomPagePadding(
-        child: Column(
-      children: [
-        H4(text: "Ouué"),
-        
+        H3(
+          text: "Mon CV",
+        ),
+        TextAdd(
+          text: "+ Ajouter",
+        ),
       ],
     ));
   }
@@ -138,7 +172,7 @@ class _InscriptionState extends State<Inscription> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.transparent,
-          title: stepManager.step != 1
+          title: stepManager.step == 0
               ? Container()
               : Row(children: [
                   const Padding(
@@ -152,10 +186,10 @@ class _InscriptionState extends State<Inscription> {
                 ]),
           //centerTitle: true,
           elevation: 0,
-          leading: stepManager.step != 1
+          leading: stepManager.step == 0
               ? Container()
               : IconButton(
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.arrow_back_ios,
                     color: Colors.black87,
                   ),
@@ -179,8 +213,10 @@ class _InscriptionState extends State<Inscription> {
                 ),
         ),
         body: stepManager.getActual(),
-        bottomSheet: Padding(padding: EdgeInsets.only(bottom: 0.0)),
-        floatingActionButton:  Footer(children: [
+        bottomSheet: const Padding(padding: EdgeInsets.only(bottom: 0.0)),
+        floatingActionButton: stepManager.step == 0
+            ? Container()
+            : Footer(children: [
                 H4(
                     text: (stepManager.step + 1).toString() +
                         "/" +
@@ -194,7 +230,10 @@ class _InscriptionState extends State<Inscription> {
                       setState(() {
                         stepManager.next(callback: () {
                           if (stepManager.step == 2) {
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=>SwipePage()));
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => SwipePage()));
                           } /*else {
                             errorDialog(context, "Erreur",
                                 "Tous les champs ne sont pas remplis");

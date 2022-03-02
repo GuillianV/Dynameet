@@ -25,6 +25,10 @@ class H3 extends StatelessWidget {
         padding: EdgeInsets.symmetric(vertical: 10),
         child: Text(
           text,
+          style: GoogleFonts.montserrat(
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+              color: Color(0xFFB3B3B3)),
         ));
   }
 }
@@ -39,15 +43,23 @@ class H4 extends StatelessWidget {
         padding: EdgeInsets.symmetric(vertical: 10),
         child: Text(text,
             style: GoogleFonts.montserrat(
-                fontWeight: FontWeight.bold,
-                fontSize:
-                    30) /*const TextStyle(
-            fontWeight: FontWeight.w600,
-            fontSize: 30,
-            color: Colors.black,
-            fontFamily: ,
-          ),*/
-            ));
+                fontWeight: FontWeight.bold, fontSize: 30)));
+  }
+}
+
+class TextAdd extends StatelessWidget {
+  final String text;
+  TextAdd({Key? key, required this.text}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+        padding: EdgeInsets.only(left: 20),
+        child: Text(text,
+            style: GoogleFonts.montserrat(
+                fontWeight: FontWeight.normal,
+                fontSize: 20,
+                color: Color(0xffFFA857))));
   }
 }
 
@@ -127,7 +139,7 @@ class AppBarText extends StatelessWidget {
 class TextInput extends StatelessWidget {
   final String hint;
   final TextEditingController controller;
-  TextInput({Key? key, required this.hint, required this.controller})
+  const TextInput({Key? key, required this.hint, required this.controller})
       : super(key: key);
 
   @override
@@ -145,7 +157,11 @@ class TextInput extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
             borderSide: BorderSide(color: Color(0xFFB3B3B3), width: 2.0),
           ),
-          hintText: hint),
+          hintText: hint,
+          hintStyle: GoogleFonts.montserrat(
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+              color: Color(0xFFB3B3B3))),
     );
   }
 }
@@ -175,7 +191,11 @@ class TextArea extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
             borderSide: BorderSide(color: Color(0xFFB3B3B3), width: 2.0),
           ),
-          hintText: hint),
+          hintText: hint,
+          hintStyle: GoogleFonts.montserrat(
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+              color: Color(0xFFB3B3B3))),
     );
   }
 }
