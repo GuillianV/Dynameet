@@ -1,3 +1,4 @@
+import 'package:dynameet/widgets/bottom_bar.dart';
 import 'package:dynameet/widgets/button.dart';
 import 'package:dynameet/widgets/button_icon.dart';
 import 'package:flutter/material.dart';
@@ -14,13 +15,7 @@ class SwipePage extends StatefulWidget {
 }
 
 class _SwipePageState extends State<SwipePage> {
-  int _currentIndex = 0;
-
-  void onTabTapped(int index) {
-    setState(() {
-      _currentIndex = index;
-    });
-  }
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -112,37 +107,6 @@ class _SwipePageState extends State<SwipePage> {
             ],
           ),
         ),
-        bottomNavigationBar: Container(
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(30), topLeft: Radius.circular(30)),
-              boxShadow: [
-                BoxShadow(
-                    color: Colors.black38, spreadRadius: 0, blurRadius: 10),
-              ],
-            ),
-            child: ClipRRect(
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(30.0),
-                topRight: Radius.circular(30.0),
-              ),
-              child: BottomNavigationBar(
-                backgroundColor: Color(0xffFFA857),
-                selectedItemColor: Color(0xff1F3C7C),
-                type: BottomNavigationBarType.fixed,
-                onTap: onTabTapped,
-                currentIndex: _currentIndex,
-                items: const [
-                  BottomNavigationBarItem(
-                    icon: Icon(Icons.home),
-                    label: 'Home',
-                  ),
-                  BottomNavigationBarItem(
-                    icon: Icon(Icons.menu),
-                    label: 'Matchs',
-                  ),
-                ],
-              ),
-            )));
+        bottomNavigationBar: const BottomBar(baseIndex: 0));
   }
 }

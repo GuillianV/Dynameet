@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const SwipePage(),
+      home: const Landing(title:"Dynameet"),
       debugShowCheckedModeBanner: false,
     );
   }
