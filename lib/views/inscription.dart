@@ -24,7 +24,6 @@ class _InscriptionState extends State<Inscription> {
 
   bool isEtudiant = false;
   bool isCompany = false;
-   Color bg = Color(0xffFFA857);
 
   StepManager stepManager = StepManager(children: []);
 
@@ -48,6 +47,9 @@ class _InscriptionState extends State<Inscription> {
       mainAxisSize: MainAxisSize.max,
       children: [
         const SizedBox(
+          height: 20,
+        ),
+        const SizedBox(
           width: 100,
           child: const Image(image: AssetImage("assets/images/logo_crop.png")),
         ),
@@ -55,20 +57,32 @@ class _InscriptionState extends State<Inscription> {
           height: 100,
         ),
         H4(text: "Je cherche..."),
+        const SizedBox(
+          height: 20,
+        ),
         ButtonBasic(
           text: "... une entreprise",
-          color:  bg,
+          color:Color(0xff1F3C7C),
+          height: 50,
           pressed: () {
-               bg =  Colors.black54;
-           
+            print("next");
+            setState(() {
+              stepManager.next();
+            });
           },
+        ),
+        const SizedBox(
+          height: 20,
         ),
         ButtonBasic(
           text: "... un alternant",
-          color:Color(0xffFFA857),
+          color:Color(0xff1F3C7C),
+          height: 50,
           pressed: () {
-
-
+            print("next");
+            setState(() {
+              stepManager.next();
+            });
           },
         )
       ],
@@ -123,10 +137,10 @@ class _InscriptionState extends State<Inscription> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.transparent,
-          title: AppBarText(text: "Dynameet"),
+          title: stepManager.step != 1 ?  Container() : AppBarText(text: "Inscription"),
           centerTitle: true,
           elevation: 0,
-          leading: IconButton(
+          leading: Container()/*IconButton(
             icon: Icon(Icons.arrow_back,color: Colors.black87,),
             onPressed: () {
               setState(() {
@@ -143,11 +157,11 @@ class _InscriptionState extends State<Inscription> {
                 }
               });
             },
-          ),
+          )*/,
         ),
         body: stepManager.getActual(),
         bottomSheet: Padding(padding: EdgeInsets.only(bottom: 0.0)),
-        floatingActionButton: Footer(children: [
+        floatingActionButton: stepManager.step != 1 ?  Container() : Footer(children: [
           H4(
               text: "Etape " +
                   (stepManager.step + 1).toString() +

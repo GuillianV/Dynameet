@@ -17,15 +17,17 @@ class _LandingState extends State<Landing> {
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: Container(
           alignment: Alignment(1, 1.0),
-          child: ButtonBasic(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 60),
+            child: ButtonBasic(
             text: "Commencer",
-            color: Color(0xffFFA857),
+            color: Color(0xff1F3C7C),
             pressed: () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => Inscription()));
             },
-            height: 80,
-          ),
+            height: 50,
+          )),
         ),
         body: Center(
           child: Column(
