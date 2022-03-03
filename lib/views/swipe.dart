@@ -22,14 +22,23 @@ class _SwipePageState extends State<SwipePage> {
   Widget? currentBody = null;
 
   @override
+  void initState() {
+  
+    GenerateEntreprise();
+  GenerateEtudiant();
+      super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    
     double _height = MediaQuery.of(context).size.height;
     double _width = MediaQuery.of(context).size.width;
 
     void onTabTapped(int index) {
       setState(() {
         if (index == 0 && _currentIndex != index) {
-          currentBody = swipe_widget(context);
+          currentBody = SwipeWidget();
         }
 
         if (index == 1 && _currentIndex != index) {
@@ -78,7 +87,7 @@ class _SwipePageState extends State<SwipePage> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           )),
         ),
-        body: currentBody == null ? swipe_widget(context) : currentBody,
+        body: currentBody == null ? SwipeWidget() : currentBody,
         bottomNavigationBar: Container(
             decoration: const BoxDecoration(
               borderRadius: BorderRadius.only(
@@ -122,9 +131,20 @@ class _SwipePageState extends State<SwipePage> {
   }
 }
 
-Widget swipe_widget(context) {
-  GenerateEntreprise();
-  GenerateEtudiant();
+class SwipeWidget extends StatefulWidget {
+  const SwipeWidget({ Key? key }) : super(key: key);
+
+  @override
+  _SwipeWidgetState createState() => _SwipeWidgetState();
+}
+
+class _SwipeWidgetState extends State<SwipeWidget> {
+  @override
+  Widget build(BuildContext context) {
+  
+
+
+
 
   double _height = MediaQuery.of(context).size.height;
   double _width = MediaQuery.of(context).size.width;
@@ -155,39 +175,66 @@ Widget swipe_widget(context) {
                 ],
               ),
               child: Stack(
-                children: List.generate(
+                children: listEtudiant.length > 0 ?  List.generate(
                     listEtudiant.length,
                     (index) => Container(
                           child: Center(
-                              child: Column(
+                              child:  Column(
                             children: [
-                              FittedBox(
-                     child: Image.network(listEtudiant[index].photo),
-                        fit: BoxFit.fill,
-                      ),
-                              
+                              Container(child: FittedBox(
+                                child: Image.network(listEtudiant[index].photo),
+                                fit: BoxFit.cover,
+                                
+                              ),height: _height*0.2,width: _width * 0.9,clipBehavior: Clip.antiAlias, decoration: BoxDecoration(),)
+                              ,
                               Container(
-                                child: Column(children: [
-                                  Text(listEtudiant[index].nom +
+                                height: _height*0.41,
+                                color: Color(0xffE5E5E5),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                  H4(text:listEtudiant[index].nom +
                                       ", " +
                                       listEtudiant[index].age),
-                                  Text(listEtudiant[index].titreDescription),
+                                  TextAdd(text:listEtudiant[index].titreDescription,padding: 0,),
+                                  Text(listEtudiant[index].description),
                                   Container(
-                                    child:
-                                        Text(listEtudiant[index].description),
+                                    child:Column(children: [
+                                      TextAdd(text: "Soft Skills"),
+                                      Column(children: List.generate(listEtudiant[index].softSkills.length, (index2) =>  Text(listEtudiant[index].softSkills[index2]) ),)
+                                      
+                                    ],)
+                                        
+                                  ),
+                                   Container(
+                                   child:Column(children: [
+                                      TextAdd(text: "Hard Skills"),
+                                       Column(children: List.generate(listEtudiant[index].hardSkills.length, (index2) =>  Text(listEtudiant[index].softSkills[index2]) ),)
+                                      
+                                    ],)
                                   )
                                 ]),
                               )
                             ],
                           )),
-                        )),
+                        ) ) : [ Center(child: H4(text: "Aucun Résultat")) ],
               )),
         ),
         Center(
           child: Row(
             children: [
               ButtonIcon(
-                  pressed: () {},
+                  pressed: () {
+                      setState(() {
+                        
+
+                       if(listEtudiant.isNotEmpty) 
+                         listEtudiant.removeAt(listEtudiant.length - 1);
+                      });
+                     
+                    
+                  },
                   icon: const Icon(
                     Icons.close,
                     color: Colors.white70,
@@ -230,7 +277,10 @@ Widget swipe_widget(context) {
       ],
     ),
   );
+
+  }
 }
+
 
 Widget match(context) {
   double _height = MediaQuery.of(context).size.height;
