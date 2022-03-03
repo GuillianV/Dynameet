@@ -5,12 +5,16 @@ import 'package:uuid/uuid_util.dart';
 
 var UUID = const Uuid();
 List<Etudiant> listEtudiant = [];
-
+List<Etudiant> listEtudiantSave = [];
 void GenerateEtudiant(){
-  listEtudiant.add(Etudiant.CreateEtudiant("Timoté","18","https://previews.123rf.com/images/pixinoo/pixinoo1404/pixinoo140400194/27891780-dynamische-nachwuchsf%C3%BChrungs-zum-aufruf-gestikuliert.jpg","Marketteur compétant","Salut moi c'est Timoté, je recherche une alternance dans le domaine du marketting ! Contactez moi !", ["loyal","dynamique"], ["Marketteur"]));
-  listEtudiant.add(Etudiant.CreateEtudiant("Charlene","22","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRrXe_3H_aDjBnUpgCztef6DOsXqgrI4WyLA&usqp=CAU","Développeuse en réseaux","Salut moi c'est Charlene, je recherche une alternance dans le domaine de la cybere sécurité ! Contactez moi vite !", ["loyal","assidue"], ["Développeuse","Architecture réseau"]));
+  listEtudiantSave.add(Etudiant.CreateEtudiant("Timoté","18","https://previews.123rf.com/images/pixinoo/pixinoo1404/pixinoo140400194/27891780-dynamische-nachwuchsf%C3%BChrungs-zum-aufruf-gestikuliert.jpg","Marketteur compétant","Salut moi c'est Timoté, je recherche une alternance dans le domaine du marketting ! Contactez moi !", ["loyal","dynamique"], ["Marketteur"]));
+  listEtudiantSave.add(Etudiant.CreateEtudiant("Charlene","22","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRrXe_3H_aDjBnUpgCztef6DOsXqgrI4WyLA&usqp=CAU","Développeuse en réseaux","Salut moi c'est Charlene, je recherche une alternance dans le domaine de la cybere sécurité ! Contactez moi vite !", ["loyal","assidue"], ["Développeuse","Architecture réseau"]));
+  ResetEtudiant();
 }
 
+void ResetEtudiant(){
+  listEtudiant = listEtudiantSave;
+}
 
 class Etudiant {
 

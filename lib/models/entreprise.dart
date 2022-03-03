@@ -5,10 +5,15 @@ import 'package:uuid/uuid_util.dart';
 
 var UUID = const Uuid();
 List<Entreprise> listEntreprise = [];
-
+List<Entreprise> listEntrepriseSave = [];
 void GenerateEntreprise(){
-  listEntreprise.add(Entreprise.CreateEntreprise("Webb Company","https://www.designwebcompany.fr/wp-content/uploads/2021/12/design-web-company.png", ["loyal","dynamique"], ["jeune startup","motivation"], ["Dev web","Marketteur"]));
-  listEntreprise.add(Entreprise.CreateEntreprise("RATP","https://www.cityride.fr/wp-content/uploads/2021/03/ratp-logo-660x340.jpg", ["drole","sympathique"], ["dicipliné"], ["Réseau"]));
+  listEntrepriseSave.add(Entreprise.CreateEntreprise("Webb Company","https://www.designwebcompany.fr/wp-content/uploads/2021/12/design-web-company.png", ["loyal","dynamique"], ["jeune startup","motivation"], ["Dev web","Marketteur"]));
+  listEntrepriseSave.add(Entreprise.CreateEntreprise("RATP","https://www.cityride.fr/wp-content/uploads/2021/03/ratp-logo-660x340.jpg", ["drole","sympathique"], ["dicipliné"], ["Réseau"]));
+  ResetEntreprise();
+}
+
+void ResetEntreprise(){
+  listEntreprise = listEntrepriseSave;
 }
 
 class Entreprise {
@@ -37,7 +42,7 @@ factory Entreprise.CreateEntreprise(String _nom, String _photo,List<String> _val
   }
  
   static Entreprise? GetEntreprise(String _uuid){
-    Entreprise entreprise = listEntreprise.firstWhere((element) => element.nom == _uuid);
+    Entreprise entreprise = listEntreprise.firstWhere((element) => element.uuid == _uuid);
     if (entreprise != null) {
       return entreprise;
     } else {

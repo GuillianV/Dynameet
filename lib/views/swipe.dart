@@ -146,15 +146,33 @@ class SwipeWidget extends StatefulWidget {
 
   final bool isEtudiant;
 
+
+
   @override
   _SwipeWidgetState createState() => _SwipeWidgetState();
 }
 
 class _SwipeWidgetState extends State<SwipeWidget> {
+
+@override
+  void initState() {
+  ResetEntreprise();
+  ResetEtudiant();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     double _height = MediaQuery.of(context).size.height;
     double _width = MediaQuery.of(context).size.width;
+
+    Etudiant? etuCible;
+    Entreprise? entrCible;
+    if(isEtudiant){
+      etuCible = listEtudiantSave.first;
+    }else{
+      entrCible = listEntrepriseSave.first;
+    }
 
     return Center(
       child: Column(
@@ -214,44 +232,51 @@ class _SwipeWidgetState extends State<SwipeWidget> {
                     color: const Color(0xff1F3C7C)),
                 ButtonIcon(
                     pressed: () {
-                      String uuidEtu = "";
-                      String uuidEntr = "";
 
-                      Entreprise entreprise =
-                          Entreprise.GetEntreprise(uuidEntr) ??
+
+
+                      if(isEtudiant){
+        Entreprise entreprise =
+                          Entreprise.GetEntreprise(listEntreprise[listEntreprise.length -1].uuid) ??
                               new Entreprise("");
-                      Etudiant etudiant =
-                          Etudiant.GetEtudiant(uuidEtu) ?? new Etudiant("");
-
-                      if (isEtudiant) {
-                        etudiant.matchedEntreprise.add(entreprise.uuid);
+                               etuCible!.matchedEntreprise.add(entreprise.uuid);
 
                         if (entreprise.matchedEtudiant
-                            .contains(etudiant.uuid)) {
+                            .contains(etuCible!.uuid)) {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => MatchPage(
                                         uuidEntreprise: entreprise.uuid,
-                                        uuidStudent: etudiant.uuid,
+                                        uuidStudent: etuCible!.uuid,
                                         isEtudiant: isEtudiant,
                                       )));
                         }
-                      } else {
-                        entreprise.matchedEtudiant.add(etudiant.uuid);
+                       
+                              
+                      }else{
+                          Etudiant etudiant =Etudiant.GetEtudiant(listEtudiant[listEtudiant.length-1].uuid) ?? new Etudiant("");
+                          entrCible!.matchedEtudiant.add(etudiant.uuid);
 
                         if (etudiant.matchedEntreprise
-                            .contains(entreprise.uuid)) {
+                            .contains(entrCible!.uuid)) {
+
+
                           Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => MatchPage(
-                                        uuidEntreprise: entreprise.uuid,
+                                        uuidEntreprise: entrCible!.uuid,
                                         uuidStudent: etudiant.uuid,
                                         isEtudiant: isEtudiant,
                                       )));
                         }
+                      
                       }
+
+               
+                    
+                       
                     },
                     icon: const Icon(
                       Icons.favorite,
