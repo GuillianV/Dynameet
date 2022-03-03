@@ -8,7 +8,7 @@ List<Etudiant> listEtudiant = [];
 
 void GenerateEtudiant(){
   listEtudiant.add(Etudiant.CreateEtudiant("Timoté","18","https://previews.123rf.com/images/pixinoo/pixinoo1404/pixinoo140400194/27891780-dynamische-nachwuchsf%C3%BChrungs-zum-aufruf-gestikuliert.jpg","Marketteur compétant","Salut moi c'est Timoté, je recherche une alternance dans le domaine du marketting ! Contactez moi !", ["loyal","dynamique"], ["Marketteur"]));
-  listEtudiant.add(Etudiant.CreateEtudiant("Charlene","22","https://www.finexkap.com/app/uploads/2018/03/Yoanna-developpeuse-front-compressor.png","Développeuse en réseaux","Salut moi c'est Charlene, je recherche une alternance dans le domaine de la cybere sécurité ! Contactez moi vite !", ["loyal","assidue"], ["Développeuse","Architecture réseau"]));
+  listEtudiant.add(Etudiant.CreateEtudiant("Charlene","22","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRrXe_3H_aDjBnUpgCztef6DOsXqgrI4WyLA&usqp=CAU","Développeuse en réseaux","Salut moi c'est Charlene, je recherche une alternance dans le domaine de la cybere sécurité ! Contactez moi vite !", ["loyal","assidue"], ["Développeuse","Architecture réseau"]));
 }
 
 
