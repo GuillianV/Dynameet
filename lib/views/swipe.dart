@@ -36,10 +36,10 @@ class _SwipePageState extends State<SwipePage> {
     double _width = MediaQuery.of(context).size.width;
     String uuidCible = "";
 
-    if(isEtudiant == true)
-      uuidCible = listEtudiant.first!.uuid;
+    if (isEtudiant == true)
+      uuidCible = listEtudiant.first.uuid;
     else
-      uuidCible = listEntreprise.first!.uuid;
+      uuidCible = listEntreprise.first.uuid;
 
     void onTabTapped(int index) {
       setState(() {
@@ -51,7 +51,7 @@ class _SwipePageState extends State<SwipePage> {
         }
 
         if (index == 1 && _currentIndex != index) {
-          currentBody = match(context,uuidCible);
+          currentBody = match(context, uuidCible);
         }
 
         _currentIndex = index;
@@ -89,9 +89,9 @@ class _SwipePageState extends State<SwipePage> {
                                       Landing(title: "Dynameet")));
                         },
                         icon: const Icon(CarbonIcons.user_avatar,
-                            color: Colors.black87, size: 50),
-                        width: _height * 0.058,
-                        height: _height * 0.058,
+                            color: Colors.black87, size: 45),
+                        width: 45,
+                        height: 45,
                         padding: EdgeInsets.zero,
                         color: Colors.white,
                       )),
@@ -102,11 +102,11 @@ class _SwipePageState extends State<SwipePage> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           )),
         ),
-        body: currentBody ?? SwipeWidget(
-                isEtudiant: isEtudiant,
-                 uuidCible: uuidCible,
-
-              ),
+        body: currentBody ??
+            SwipeWidget(
+              isEtudiant: isEtudiant,
+              uuidCible: uuidCible,
+            ),
         bottomNavigationBar: Container(
             decoration: const BoxDecoration(
               borderRadius: BorderRadius.only(
@@ -151,7 +151,9 @@ class _SwipePageState extends State<SwipePage> {
 }
 
 class SwipeWidget extends StatefulWidget {
-  const SwipeWidget({Key? key, required this.isEtudiant ,required this.uuidCible }) : super(key: key);
+  const SwipeWidget(
+      {Key? key, required this.isEtudiant, required this.uuidCible})
+      : super(key: key);
 
   final bool isEtudiant;
   final String uuidCible;
@@ -161,8 +163,7 @@ class SwipeWidget extends StatefulWidget {
 }
 
 class _SwipeWidgetState extends State<SwipeWidget> {
-
-@override
+  @override
   void initState() {
     super.initState();
   }
@@ -171,8 +172,6 @@ class _SwipeWidgetState extends State<SwipeWidget> {
   Widget build(BuildContext context) {
     double _height = MediaQuery.of(context).size.height;
     double _width = MediaQuery.of(context).size.width;
-
-
 
     Etudiant? etuCible = Etudiant.GetEtudiant(widget.uuidCible);
     Entreprise? entrCible = Entreprise.GetEntreprise(widget.uuidCible);
@@ -209,15 +208,11 @@ class _SwipeWidgetState extends State<SwipeWidget> {
                 ButtonIcon(
                     pressed: () {
                       setState(() {
-
-                        if (isEtudiant == true &&  listEtudiant.isNotEmpty)
+                        if (isEtudiant == true && listEtudiant.isNotEmpty)
                           listEntreprise.removeAt(listEntreprise.length - 1);
-                          
-                      
 
-                       if (isEtudiant == false &&  listEntreprise.isNotEmpty)
+                        if (isEtudiant == false && listEntreprise.isNotEmpty)
                           listEtudiant.removeAt(listEtudiant.length - 1);
-
                       });
                     },
                     icon: const Icon(
@@ -242,68 +237,55 @@ class _SwipeWidgetState extends State<SwipeWidget> {
                     color: const Color(0xff1F3C7C)),
                 ButtonIcon(
                     pressed: () {
-
-
-
-                      if(isEtudiant){
-        Entreprise entreprise =
-                          Entreprise.GetEntreprise(listEntreprise[listEntreprise.length -1].uuid) ??
-                              new Entreprise("");
-                               etuCible!.matchedEntreprise.add(entreprise.uuid);
+                      if (isEtudiant) {
+                        Entreprise entreprise = Entreprise.GetEntreprise(
+                                listEntreprise[listEntreprise.length - 1]
+                                    .uuid) ??
+                            Entreprise("");
+                        etuCible!.matchedEntreprise.add(entreprise.uuid);
 
                         if (entreprise.matchedEtudiant
-                            .contains(etuCible!.uuid)) {
+                            .contains(etuCible.uuid)) {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => MatchPage(
                                         uuidEntreprise: entreprise.uuid,
-                                        uuidStudent: etuCible!.uuid,
+                                        uuidStudent: etuCible.uuid,
                                         isEtudiant: isEtudiant,
                                       )));
                         }
 
-
                         setState(() {
-                          if (isEtudiant == true &&  listEtudiant.isNotEmpty)
+                          if (isEtudiant == true && listEtudiant.isNotEmpty) {
                             listEntreprise.removeAt(listEntreprise.length - 1);
-                          
-                      
+                          }
                         });
-                       
-                        
-
-                    
-                      }else{
-                          Etudiant etudiant =Etudiant.GetEtudiant(listEtudiant[listEtudiant.length-1].uuid) ?? new Etudiant("");
-                          entrCible!.matchedEtudiant.add(etudiant.uuid);
+                      } else {
+                        Etudiant etudiant = Etudiant.GetEtudiant(
+                                listEtudiant[listEtudiant.length - 1].uuid) ??
+                            Etudiant("");
+                        entrCible!.matchedEtudiant.add(etudiant.uuid);
 
                         if (etudiant.matchedEntreprise
-                            .contains(entrCible!.uuid)) {
-
-
+                            .contains(entrCible.uuid)) {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => MatchPage(
-                                        uuidEntreprise: entrCible!.uuid,
+                                        uuidEntreprise: entrCible.uuid,
                                         uuidStudent: etudiant.uuid,
                                         isEtudiant: isEtudiant,
                                       )));
                         }
 
                         setState(() {
-                             if (isEtudiant == false &&  listEntreprise.isNotEmpty)
-                                listEtudiant.removeAt(listEtudiant.length - 1);
-
-                              
+                          if (isEtudiant == false &&
+                              listEntreprise.isNotEmpty) {
+                            listEtudiant.removeAt(listEtudiant.length - 1);
+                          }
                         });
-                      
                       }
-
-               
-                    
-                       
                     },
                     icon: const Icon(
                       Icons.favorite,
@@ -325,15 +307,19 @@ class _SwipeWidgetState extends State<SwipeWidget> {
   }
 }
 
-Widget match(context,_uuid) {
+Widget match(context, _uuid) {
   double _height = MediaQuery.of(context).size.height;
   double _width = MediaQuery.of(context).size.width;
 
   List<String> nom = [];
-  if(isEtudiant){
-    Entreprise.GetEntreprisesMatched(_uuid)?.forEach((element) {nom.add(element.nom);});
-  }else{
-    Etudiant.GetEtudiantsMatched(_uuid)?.forEach((element) {nom.add(element.nom +" ,"+element.age);});
+  if (isEtudiant) {
+    Entreprise.GetEntreprisesMatched(_uuid)?.forEach((element) {
+      nom.add(element.nom);
+    });
+  } else {
+    Etudiant.GetEtudiantsMatched(_uuid)?.forEach((element) {
+      nom.add(element.nom + " ," + element.age);
+    });
   }
 
   return CustomPagePadding(
@@ -348,11 +334,10 @@ Widget match(context,_uuid) {
       const SizedBox(
         height: 30,
       ),
-
-      Column(children: 
-      List.generate(nom.length, (index) => createRow(nom[index],isEtudiant))
-      ,)
-
+      Column(
+        children: List.generate(
+            nom.length, (index) => createRow(nom[index], isEtudiant)),
+      )
     ],
   ));
 }
@@ -370,16 +355,16 @@ createRow(String nom, bool isEtudiant) {
                 text: nom,
                 padding: 0,
               ),
-              if(isEtudiant)
-              TextAdd(
-                text: "Entreprise",
-                padding: 0,
-              )
+              if (isEtudiant)
+                TextAdd(
+                  text: "Entreprise",
+                  padding: 0,
+                )
               else
-              TextAdd(
-                text: "Alternant",
-                padding: 0,
-              )
+                TextAdd(
+                  text: "Alternant",
+                  padding: 0,
+                )
             ],
           ),
           ButtonBasic(

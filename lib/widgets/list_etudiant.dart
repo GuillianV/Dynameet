@@ -36,45 +36,78 @@ class _StudentListState extends State<StudentList> {
                         ),
                         Container(
                           height: _height * 0.41,
-                          color: Color(0xffE5E5E5),
-                          child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                H4(
-                                    text: listEtudiant[index].nom +
-                                        ", " +
-                                        listEtudiant[index].age),
-                                TextAdd(
-                                  text: listEtudiant[index].titreDescription,
-                                  padding: 0,
-                                ),
-                                Text(listEtudiant[index].description),
-                                Container(
-                                    child: Column(
-                                  children: [
-                                    TextAdd(text: "Soft Skills"),
-                                    Column(
-                                      children: List.generate(
-                                          listEtudiant[index].softSkills.length,
-                                          (index2) => Text(listEtudiant[index]
-                                              .softSkills[index2])),
-                                    )
-                                  ],
-                                )),
-                                Container(
-                                    child: Column(
-                                  children: [
-                                    TextAdd(text: "Hard Skills"),
-                                    Column(
-                                      children: List.generate(
-                                          listEtudiant[index].hardSkills.length,
-                                          (index2) => Text(listEtudiant[index]
-                                              .softSkills[index2])),
-                                    )
-                                  ],
-                                ))
-                              ]),
+                          width: _width * 0.9,
+                          color: Color.fromARGB(255, 243, 243, 243),
+                          child: Padding(
+                            padding: EdgeInsets.all(20),
+                            child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  H4(
+                                      text: listEtudiant[index].nom +
+                                          ", " +
+                                          listEtudiant[index].age),
+                                  TextAdd(
+                                    text: listEtudiant[index].titreDescription,
+                                    padding: 0,
+                                  ),
+                                  Text(listEtudiant[index].description),
+                                  Container(
+                                      child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      TextAdd(
+                                        text: "Soft Skills",
+                                        padding: 0,
+                                      ),
+                                      Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: List.generate(
+                                            listEtudiant[index]
+                                                .softSkills
+                                                .length,
+                                            (index2) => Text("• " +
+                                                listEtudiant[index]
+                                                    .softSkills[index2])),
+                                      )
+                                    ],
+                                  )),
+                                  Container(
+                                      child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      TextAdd(
+                                        text: "Hard Skills",
+                                        padding: 0,
+                                      ),
+                                      Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: List.generate(
+                                            listEtudiant[index]
+                                                .hardSkills
+                                                .length,
+                                            (index2) => Text("• " +
+                                                listEtudiant[index]
+                                                    .hardSkills[index2])),
+                                      )
+                                    ],
+                                  )),
+                                ]),
+                          ),
                         )
                       ],
                     )),
