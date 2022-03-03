@@ -142,6 +142,7 @@ Widget swipe_widget(context) {
           child: Container(
               width: _width * 0.9,
               height: _height * 0.61,
+              clipBehavior: Clip.antiAlias,
               decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.all(Radius.circular(30)),
@@ -160,7 +161,11 @@ Widget swipe_widget(context) {
                           child: Center(
                               child: Column(
                             children: [
-                              Image.network(listEtudiant[index].photo),
+                              FittedBox(
+                     child: Image.network(listEtudiant[index].photo),
+                        fit: BoxFit.fill,
+                      ),
+                              
                               Container(
                                 child: Column(children: [
                                   Text(listEtudiant[index].nom +
