@@ -1,4 +1,6 @@
 import 'package:carbon_icons/carbon_icons.dart';
+import 'package:dynameet/models/entreprise.dart';
+import 'package:dynameet/models/etudiant.dart';
 import 'package:dynameet/views/swipe.dart';
 import 'package:dynameet/widgets/button.dart';
 import 'package:dynameet/widgets/button_icon.dart';
@@ -10,7 +12,14 @@ import 'inscription.dart';
 class MatchPage extends StatefulWidget {
   const MatchPage({
     Key? key,
+    required this.uuidEntreprise,
+    required this.uuidStudent,
+    required this.isEtudiant,
   }) : super(key: key);
+
+  final String uuidStudent;
+  final String uuidEntreprise;
+  final bool isEtudiant;
 
   @override
   State<MatchPage> createState() => _MatchPageState();
@@ -19,6 +28,11 @@ class MatchPage extends StatefulWidget {
 class _MatchPageState extends State<MatchPage> {
   @override
   Widget build(BuildContext context) {
+    Entreprise entreprise =
+        Entreprise.GetEntreprise(widget.uuidEntreprise) ?? new Entreprise("");
+    Etudiant etudiant =
+        Etudiant.GetEtudiant(widget.uuidStudent) ?? new Etudiant("");
+
     return Scaffold(
       body: Center(
         child: Container(
@@ -48,8 +62,8 @@ class _MatchPageState extends State<MatchPage> {
                       offset: const Offset(20, 0),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(100.0),
-                        child: Image.asset(
-                          'assets/images/dylan.jpeg',
+                        child: Image.network(
+                          entreprise.photo,
                           width: 200.0,
                           height: 200.0,
                           fit: BoxFit.fill,
@@ -60,8 +74,8 @@ class _MatchPageState extends State<MatchPage> {
                       offset: const Offset(-20, 0),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(100.0),
-                        child: Image.asset(
-                          'assets/images/dylan.jpeg',
+                        child: Image.network(
+                          etudiant.photo,
                           width: 200.0,
                           height: 200.0,
                           fit: BoxFit.fill,
@@ -95,7 +109,7 @@ class _MatchPageState extends State<MatchPage> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => SwipePage(
-                                  isEtudiant: false,
+                                  isEtudiant: isEtudiant,
                                 )));
                   },
                 ),

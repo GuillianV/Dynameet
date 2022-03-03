@@ -1,5 +1,6 @@
 import 'package:carbon_icons/carbon_icons.dart';
 import 'package:dynameet/views/inscription.dart';
+import 'package:dynameet/views/landing.dart';
 import 'package:dynameet/views/match.dart';
 import 'package:dynameet/models/entreprise.dart';
 import 'package:dynameet/models/etudiant.dart';
@@ -24,8 +25,6 @@ class _SwipePageState extends State<SwipePage> {
 
   @override
   void initState() {
-    GenerateEntreprise();
-    GenerateEtudiant();
     super.initState();
   }
 
@@ -73,7 +72,13 @@ class _SwipePageState extends State<SwipePage> {
                   Padding(
                       padding: EdgeInsets.only(left: 20),
                       child: ButtonIcon(
-                        pressed: () {},
+                        pressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      Landing(title: "Dynameet")));
+                        },
                         icon: const Icon(CarbonIcons.user_avatar,
                             color: Colors.black87, size: 50),
                         width: _height * 0.058,
@@ -209,8 +214,44 @@ class _SwipeWidgetState extends State<SwipeWidget> {
                     color: const Color(0xff1F3C7C)),
                 ButtonIcon(
                     pressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => MatchPage()));
+                      String uuidEtu = "";
+                      String uuidEntr = "";
+
+                      Entreprise entreprise =
+                          Entreprise.GetEntreprise(uuidEntr) ??
+                              new Entreprise("");
+                      Etudiant etudiant =
+                          Etudiant.GetEtudiant(uuidEtu) ?? new Etudiant("");
+
+                      if (isEtudiant) {
+                        etudiant.matchedEntreprise.add(entreprise.uuid);
+
+                        if (entreprise.matchedEtudiant
+                            .contains(etudiant.uuid)) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => MatchPage(
+                                        uuidEntreprise: entreprise.uuid,
+                                        uuidStudent: etudiant.uuid,
+                                        isEtudiant: isEtudiant,
+                                      )));
+                        }
+                      } else {
+                        entreprise.matchedEtudiant.add(etudiant.uuid);
+
+                        if (etudiant.matchedEntreprise
+                            .contains(entreprise.uuid)) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => MatchPage(
+                                        uuidEntreprise: entreprise.uuid,
+                                        uuidStudent: etudiant.uuid,
+                                        isEtudiant: isEtudiant,
+                                      )));
+                        }
+                      }
                     },
                     icon: const Icon(
                       Icons.favorite,

@@ -4,8 +4,13 @@ import 'package:dynameet/views/swipe.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
+import 'models/entreprise.dart';
+import 'models/etudiant.dart';
+
 Future main() async {
   await dotenv.load(fileName: ".env");
+  GenerateEntreprise();
+  GenerateEtudiant();
   runApp(const MyApp());
 }
 
