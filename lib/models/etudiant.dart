@@ -22,7 +22,7 @@ class Etudiant {
   String description = "";
   List<String> softSkills = [];
   List<String> hardSkills = [];
-  List<String> matchedEtudiant = [];
+  List<String> matchedEntreprise = [];
 
   Etudiant(String _uuid){
     uuid = _uuid;
@@ -54,12 +54,12 @@ factory Etudiant.CreateEtudiant(String nom,String age,String photo,String titreD
  static  void AddEtudiantsMatched(String uuid,String uuidEtudiant){
     Etudiant? etudiant = GetEtudiant(uuid);
     if(etudiant != null){
-      etudiant.matchedEtudiant.add(uuidEtudiant);
+      etudiant.matchedEntreprise.add(uuidEtudiant);
     }
   }
 
  static List<Etudiant>? GetEtudiantsMatched(String uuidEntrprise){
-    return listEtudiant.where((element) => element.matchedEtudiant.contains(uuidEntrprise) == true).toList();
+    return listEtudiant.where((element) => element.matchedEntreprise.contains(uuidEntrprise) == true).toList();
   }
 
    static List<Etudiant>? GetAllEtudiant(){
