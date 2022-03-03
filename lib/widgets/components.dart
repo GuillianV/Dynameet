@@ -35,14 +35,18 @@ class H3 extends StatelessWidget {
 
 class H4 extends StatelessWidget {
   final String text;
-  H4({Key? key, required this.text, this.center}) : super(key: key);
+  H4({Key? key, required this.text, this.center, this.padding})
+      : super(key: key);
 
+  double? padding;
   bool? center;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: EdgeInsets.symmetric(vertical: 10),
+        padding: padding != null
+            ? EdgeInsets.only(left: padding!)
+            : EdgeInsets.symmetric(vertical: 10),
         child: Text(text,
             textAlign: center == true ? TextAlign.center : TextAlign.left,
             style: GoogleFonts.montserrat(
@@ -52,12 +56,16 @@ class H4 extends StatelessWidget {
 
 class TextAdd extends StatelessWidget {
   final String text;
-  TextAdd({Key? key, required this.text}) : super(key: key);
+  TextAdd({Key? key, required this.text, this.padding}) : super(key: key);
+
+  double? padding;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: EdgeInsets.only(left: 20),
+        padding: padding != null
+            ? EdgeInsets.only(left: padding!)
+            : EdgeInsets.only(left: 20),
         child: Text(text,
             style: GoogleFonts.montserrat(
                 fontWeight: FontWeight.normal,
