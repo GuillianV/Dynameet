@@ -1,3 +1,4 @@
+import 'package:dynameet/models/entreprise.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:uuid/uuid.dart';
 import 'package:uuid/uuid_util.dart';
@@ -13,7 +14,8 @@ void GenerateEtudiant(){
 }
 
 void ResetEtudiant(){
-  listEtudiant = listEtudiantSave;
+  listEtudiant.clear();
+  listEtudiantSave.forEach((element) {listEtudiant.add(element);});
 }
 
 class Etudiant {
@@ -46,9 +48,9 @@ factory Etudiant.CreateEtudiant(String nom,String age,String photo,String titreD
  
 
 
- static Etudiant? GetEtudiant(String uuid){
-    Etudiant etudiant = listEtudiant.firstWhere((element) => element.uuid == uuid );
-    if (etudiant != null)
+ static Etudiant? GetEtudiant(String _uuid){
+    Etudiant? etudiant = listEtudiantSave.firstWhere((element) => element.uuid == _uuid orElse: () => Etudiant("") );
+    if (etudiant != null && etudiant.uuid != "")
       return etudiant;
     else 
       return null;
@@ -63,11 +65,11 @@ factory Etudiant.CreateEtudiant(String nom,String age,String photo,String titreD
   }
 
  static List<Etudiant>? GetEtudiantsMatched(String uuidEntrprise){
-    return listEtudiant.where((element) => element.matchedEntreprise.contains(uuidEntrprise) == true).toList();
+    return listEtudiantSave.where((element) => element.matchedEntreprise.contains(uuidEntrprise) == true).toList();
   }
 
    static List<Etudiant>? GetAllEtudiant(){
-    return listEtudiant;
+    return listEtudiantSave;
   }
 
 }

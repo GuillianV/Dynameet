@@ -10,9 +10,7 @@ import 'models/etudiant.dart';
 Future main() async {
   await dotenv.load(fileName: ".env");
   GenerateEntreprise();
-  ResetEntreprise();
   GenerateEtudiant();
-  ResetEtudiant();
   runApp(const MyApp());
 }
 

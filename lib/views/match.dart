@@ -28,6 +28,10 @@ class MatchPage extends StatefulWidget {
 class _MatchPageState extends State<MatchPage> {
   @override
   Widget build(BuildContext context) {
+ double _height = MediaQuery.of(context).size.height;
+    double _width = MediaQuery.of(context).size.width;
+
+
     Entreprise entreprise =
         Entreprise.GetEntreprise(widget.uuidEntreprise) ?? new Entreprise("");
     Etudiant etudiant =
@@ -48,12 +52,12 @@ class _MatchPageState extends State<MatchPage> {
           child: Center(
             child: Column(
               children: [
-                const SizedBox(
-                  height: 230,
+                 SizedBox(
+                  height: _height*0.3,
                 ),
                 const H2(text: "It's a Match !"),
-                const SizedBox(
-                  height: 40,
+                 SizedBox(
+                  height:  _height*0.1,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -64,8 +68,8 @@ class _MatchPageState extends State<MatchPage> {
                         borderRadius: BorderRadius.circular(100.0),
                         child: Image.network(
                           entreprise.photo,
-                          width: 200.0,
-                          height: 200.0,
+                          width: _height*0.15,
+                          height: _height*0.15,
                           fit: BoxFit.fill,
                         ),
                       ),
@@ -76,22 +80,22 @@ class _MatchPageState extends State<MatchPage> {
                         borderRadius: BorderRadius.circular(100.0),
                         child: Image.network(
                           etudiant.photo,
-                          width: 200.0,
-                          height: 200.0,
+                          width: _height*0.15,
+                          height: _height*0.15,
                           fit: BoxFit.fill,
                         ),
                       ),
                     ),
                   ],
                 ),
-                const SizedBox(
-                  height: 60,
+                 SizedBox(
+                  height:  _height*0.05,
                 ),
                 ButtonBasic(
                   text: "Rentrer en contact",
                   color: Color(0xffFFA857),
                   fontColor: Colors.black87,
-                  height: 70,
+                  height: _height*0.1,
                   fontSize: 30,
                   pressed: () {},
                 ),
@@ -102,7 +106,7 @@ class _MatchPageState extends State<MatchPage> {
                   text: "Continuer",
                   color: Color.fromARGB(255, 255, 255, 255),
                   fontColor: Colors.black87,
-                  height: 70,
+                  height:  _height*0.1,
                   fontSize: 30,
                   pressed: () {
                     Navigator.push(

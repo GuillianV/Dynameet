@@ -1,3 +1,5 @@
+import 'package:dynameet/models/entreprise.dart';
+import 'package:dynameet/models/etudiant.dart';
 import 'package:dynameet/widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'inscription.dart';
@@ -13,6 +15,10 @@ class Landing extends StatefulWidget {
 class _LandingState extends State<Landing> {
   @override
   Widget build(BuildContext context) {
+
+    ResetEntreprise();
+    ResetEtudiant();
+
     return Scaffold(
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: Container(
