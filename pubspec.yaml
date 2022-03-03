@@ -36,6 +36,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_dotenv: ^5.0.2
   google_fonts: 2.3.1
+  uuid: ^3.0.6
   carbon_icons: ^0.0.1+2
 
 dev_dependencies:
