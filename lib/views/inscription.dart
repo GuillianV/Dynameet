@@ -343,7 +343,9 @@ class _InscriptionState extends State<Inscription> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => SwipePage()));
+                                    builder: (context) => SwipePage(
+                                          isEtudiant: isEtudiant,
+                                        )));
                           } /*else {
                             errorDialog(context, "Erreur",
                                 "Tous les champs ne sont pas remplis");

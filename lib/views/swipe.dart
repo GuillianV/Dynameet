@@ -1,4 +1,5 @@
 import 'package:carbon_icons/carbon_icons.dart';
+import 'package:dynameet/views/inscription.dart';
 import 'package:dynameet/views/match.dart';
 import 'package:dynameet/models/entreprise.dart';
 import 'package:dynameet/models/etudiant.dart';
@@ -9,9 +10,9 @@ import 'package:flutter/material.dart';
 import '../widgets/components.dart';
 
 class SwipePage extends StatefulWidget {
-  const SwipePage({
-    Key? key,
-  }) : super(key: key);
+  const SwipePage({Key? key, required this.isEtudiant}) : super(key: key);
+
+  final bool isEtudiant;
 
   @override
   State<SwipePage> createState() => _SwipePageState();
@@ -23,22 +24,22 @@ class _SwipePageState extends State<SwipePage> {
 
   @override
   void initState() {
-  
     GenerateEntreprise();
-  GenerateEtudiant();
-      super.initState();
+    GenerateEtudiant();
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    
     double _height = MediaQuery.of(context).size.height;
     double _width = MediaQuery.of(context).size.width;
 
     void onTabTapped(int index) {
       setState(() {
         if (index == 0 && _currentIndex != index) {
-          currentBody = SwipeWidget();
+          currentBody = SwipeWidget(
+            isEtudiant: widget.isEtudiant,
+          );
         }
 
         if (index == 1 && _currentIndex != index) {
@@ -87,7 +88,11 @@ class _SwipePageState extends State<SwipePage> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           )),
         ),
-        body: currentBody == null ? SwipeWidget() : currentBody,
+        body: currentBody == null
+            ? SwipeWidget(
+                isEtudiant: isEtudiant,
+              )
+            : currentBody,
         bottomNavigationBar: Container(
             decoration: const BoxDecoration(
               borderRadius: BorderRadius.only(
@@ -132,7 +137,9 @@ class _SwipePageState extends State<SwipePage> {
 }
 
 class SwipeWidget extends StatefulWidget {
-  const SwipeWidget({ Key? key }) : super(key: key);
+  const SwipeWidget({Key? key, required this.isEtudiant}) : super(key: key);
+
+  final bool isEtudiant;
 
   @override
   _SwipeWidgetState createState() => _SwipeWidgetState();
@@ -141,103 +148,174 @@ class SwipeWidget extends StatefulWidget {
 class _SwipeWidgetState extends State<SwipeWidget> {
   @override
   Widget build(BuildContext context) {
-  
+    double _height = MediaQuery.of(context).size.height;
+    double _width = MediaQuery.of(context).size.width;
 
-
-
-
-  double _height = MediaQuery.of(context).size.height;
-  double _width = MediaQuery.of(context).size.width;
-
-  return Center(
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      mainAxisSize: MainAxisSize.max,
-      children: <Widget>[
-        const SizedBox(
-          height: 20,
-        ),
-        Padding(
-          padding: const EdgeInsets.only(bottom: 30),
-          child: Container(
-              width: _width * 0.9,
-              height: _height * 0.61,
-              clipBehavior: Clip.antiAlias,
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.all(Radius.circular(30)),
-                boxShadow: [
-                  BoxShadow(
-                      color: Colors.black38,
-                      offset: Offset(4, 4),
-                      spreadRadius: 0,
-                      blurRadius: 10),
-                ],
-              ),
-              child: StudentList())
-        ),
-        Center(
-          child: Row(
-            children: [
-              ButtonIcon(
-                  pressed: () {
-                      setState(() {
-                        
-
-                       if(listEtudiant.isNotEmpty) 
-                         listEtudiant.removeAt(listEtudiant.length - 1);
-                      });
-                     
-                    
-                  },
-                  icon: const Icon(
-                    Icons.close,
-                    color: Colors.white70,
-                    size: 40,
-                  ),
-                  width: _height * 0.1,
-                  height: _height * 0.1,
-                  padding: EdgeInsets.zero,
-                  color: const Color(0xffE65B6A)),
-              ButtonIcon(
-                  pressed: () {},
-                  icon: const Icon(
-                    Icons.star,
-                    color: Colors.white70,
-                    size: 40,
-                  ),
-                  width: _height * 0.1,
-                  height: _height * 0.1,
-                  padding: EdgeInsets.zero,
-                  color: const Color(0xff1F3C7C)),
-              ButtonIcon(
-                  pressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => MatchPage()));
-                  },
-                  icon: const Icon(
-                    Icons.favorite,
-                    color: Colors.white70,
-                    size: 40,
-                  ),
-                  width: _height * 0.1,
-                  height: _height * 0.1,
-                  padding: EdgeInsets.zero,
-                  color: const Color(0xffF1AC60))
-            ],
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisSize: MainAxisSize.max,
+        children: <Widget>[
+          const SizedBox(
+            height: 20,
           ),
-        )
-      ],
-    ),
-  );
+          Padding(
+              padding: const EdgeInsets.only(bottom: 30),
+              child: Container(
+                  width: _width * 0.9,
+                  height: _height * 0.61,
+                  clipBehavior: Clip.antiAlias,
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(Radius.circular(30)),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black38,
+                          offset: Offset(4, 4),
+                          spreadRadius: 0,
+                          blurRadius: 10),
+                    ],
+                  ),
+                  child: widget.isEtudiant ? EntrepriseList() : StudentList())),
+          Center(
+            child: Row(
+              children: [
+                ButtonIcon(
+                    pressed: () {
+                      setState(() {
+                        if (listEtudiant.isNotEmpty)
+                          listEtudiant.removeAt(listEtudiant.length - 1);
+                      });
+                    },
+                    icon: const Icon(
+                      Icons.close,
+                      color: Colors.white70,
+                      size: 40,
+                    ),
+                    width: _height * 0.1,
+                    height: _height * 0.1,
+                    padding: EdgeInsets.zero,
+                    color: const Color(0xffE65B6A)),
+                ButtonIcon(
+                    pressed: () {},
+                    icon: const Icon(
+                      Icons.star,
+                      color: Colors.white70,
+                      size: 40,
+                    ),
+                    width: _height * 0.1,
+                    height: _height * 0.1,
+                    padding: EdgeInsets.zero,
+                    color: const Color(0xff1F3C7C)),
+                ButtonIcon(
+                    pressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => MatchPage()));
+                    },
+                    icon: const Icon(
+                      Icons.favorite,
+                      color: Colors.white70,
+                      size: 40,
+                    ),
+                    width: _height * 0.1,
+                    height: _height * 0.1,
+                    padding: EdgeInsets.zero,
+                    color: const Color(0xffF1AC60))
+              ],
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
 
+class EntrepriseList extends StatefulWidget {
+  const EntrepriseList({Key? key}) : super(key: key);
+
+  @override
+  _EntrepriseListState createState() => _EntrepriseListState();
+}
+
+class _EntrepriseListState extends State<EntrepriseList> {
+  @override
+  Widget build(BuildContext context) {
+    double _height = MediaQuery.of(context).size.height;
+    double _width = MediaQuery.of(context).size.width;
+
+    return Stack(
+      children: listEtudiant.length > 0
+          ? List.generate(
+              listEtudiant.length,
+              (index) => Container(
+                    child: Center(
+                        child: Column(
+                      children: [
+                        Container(
+                          child: FittedBox(
+                            child: Image.network(
+                                "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Logo_SNCF_2011.svg/2560px-Logo_SNCF_2011.svg.png"),
+                            fit: BoxFit.cover,
+                          ),
+                          height: _height * 0.2,
+                          width: _width * 0.9,
+                          clipBehavior: Clip.antiAlias,
+                          decoration: BoxDecoration(),
+                        ),
+                        Container(
+                          height: _height * 0.41,
+                          color: Color(0xffE5E5E5),
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                H4(
+                                    text: listEtudiant[index].nom +
+                                        ", " +
+                                        listEtudiant[index].age),
+                                TextAdd(
+                                  text: listEtudiant[index].titreDescription,
+                                  padding: 0,
+                                ),
+                                Text(listEtudiant[index].description),
+                                Container(
+                                    child: Column(
+                                  children: [
+                                    TextAdd(text: "Soft Skills"),
+                                    Column(
+                                      children: List.generate(
+                                          listEtudiant[index].softSkills.length,
+                                          (index2) => Text(listEtudiant[index]
+                                              .softSkills[index2])),
+                                    )
+                                  ],
+                                )),
+                                Container(
+                                    child: Column(
+                                  children: [
+                                    TextAdd(text: "Hard Skills"),
+                                    Column(
+                                      children: List.generate(
+                                          listEtudiant[index].hardSkills.length,
+                                          (index2) => Text(listEtudiant[index]
+                                              .softSkills[index2])),
+                                    )
+                                  ],
+                                ))
+                              ]),
+                        )
+                      ],
+                    )),
+                  ))
+          : [Center(child: H4(text: "Aucun Résultat"))],
+    );
   }
 }
 
 class StudentList extends StatefulWidget {
-  const StudentList({ Key? key }) : super(key: key);
+  const StudentList({Key? key}) : super(key: key);
 
   @override
   _StudentListState createState() => _StudentListState();
@@ -246,58 +324,74 @@ class StudentList extends StatefulWidget {
 class _StudentListState extends State<StudentList> {
   @override
   Widget build(BuildContext context) {
-
-
-  double _height = MediaQuery.of(context).size.height;
-  double _width = MediaQuery.of(context).size.width;
-
+    double _height = MediaQuery.of(context).size.height;
+    double _width = MediaQuery.of(context).size.width;
 
     return Stack(
-                children: listEtudiant.length > 0 ?  List.generate(
-                    listEtudiant.length,
-                    (index) => Container(
-                          child: Center(
-                              child:  Column(
-                            children: [
-                              Container(child: FittedBox(
-                                child: Image.network(listEtudiant[index].photo),
-                                fit: BoxFit.cover,
-                                
-                              ),height: _height*0.2,width: _width * 0.9,clipBehavior: Clip.antiAlias, decoration: BoxDecoration(),)
-                              ,
-                              Container(
-                                height: _height*0.41,
-                                color: Color(0xffE5E5E5),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+      children: listEtudiant.length > 0
+          ? List.generate(
+              listEtudiant.length,
+              (index) => Container(
+                    child: Center(
+                        child: Column(
+                      children: [
+                        Container(
+                          child: FittedBox(
+                            child: Image.network(listEtudiant[index].photo),
+                            fit: BoxFit.cover,
+                          ),
+                          height: _height * 0.2,
+                          width: _width * 0.9,
+                          clipBehavior: Clip.antiAlias,
+                          decoration: BoxDecoration(),
+                        ),
+                        Container(
+                          height: _height * 0.41,
+                          color: Color(0xffE5E5E5),
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                H4(
+                                    text: listEtudiant[index].nom +
+                                        ", " +
+                                        listEtudiant[index].age),
+                                TextAdd(
+                                  text: listEtudiant[index].titreDescription,
+                                  padding: 0,
+                                ),
+                                Text(listEtudiant[index].description),
+                                Container(
+                                    child: Column(
                                   children: [
-                                  H4(text:listEtudiant[index].nom +
-                                      ", " +
-                                      listEtudiant[index].age),
-                                  TextAdd(text:listEtudiant[index].titreDescription,padding: 0,),
-                                  Text(listEtudiant[index].description),
-                                  Container(
-                                    child:Column(children: [
-                                      TextAdd(text: "Soft Skills"),
-                                      Column(children: List.generate(listEtudiant[index].softSkills.length, (index2) =>  Text(listEtudiant[index].softSkills[index2]) ),)
-                                      
-                                    ],)
-                                        
-                                  ),
-                                   Container(
-                                   child:Column(children: [
-                                      TextAdd(text: "Hard Skills"),
-                                       Column(children: List.generate(listEtudiant[index].hardSkills.length, (index2) =>  Text(listEtudiant[index].softSkills[index2]) ),)
-                                      
-                                    ],)
-                                  )
-                                ]),
-                              )
-                            ],
-                          )),
-                        ) ) : [ Center(child: H4(text: "Aucun Résultat")) ],
-              );
+                                    TextAdd(text: "Soft Skills"),
+                                    Column(
+                                      children: List.generate(
+                                          listEtudiant[index].softSkills.length,
+                                          (index2) => Text(listEtudiant[index]
+                                              .softSkills[index2])),
+                                    )
+                                  ],
+                                )),
+                                Container(
+                                    child: Column(
+                                  children: [
+                                    TextAdd(text: "Hard Skills"),
+                                    Column(
+                                      children: List.generate(
+                                          listEtudiant[index].hardSkills.length,
+                                          (index2) => Text(listEtudiant[index]
+                                              .softSkills[index2])),
+                                    )
+                                  ],
+                                ))
+                              ]),
+                        )
+                      ],
+                    )),
+                  ))
+          : [Center(child: H4(text: "Aucun Résultat"))],
+    );
   }
 }
 

@@ -91,8 +91,12 @@ class _MatchPageState extends State<MatchPage> {
                   height: 70,
                   fontSize: 30,
                   pressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => SwipePage()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => SwipePage(
+                                  isEtudiant: false,
+                                )));
                   },
                 ),
               ],
