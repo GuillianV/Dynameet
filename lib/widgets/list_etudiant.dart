@@ -26,7 +26,24 @@ class _StudentListState extends State<StudentList> {
                       children: [
                         Container(
                           child: FittedBox(
-                            child: Image.network(listEtudiant[index].photo),
+                            child: Image.network(
+                              listEtudiant[index].photo,
+                              loadingBuilder:
+                                  (context, child, loadingProgress) {
+                                {
+                                  if (loadingProgress == null) return child;
+                                  return Container(
+                                      child: Padding(
+                                    padding: EdgeInsets.all(60),
+                                    child: SizedBox(
+                                      child: CircularProgressIndicator(
+                                        color: Color(0xff1F3C7C),
+                                      ),
+                                    ),
+                                  ));
+                                }
+                              },
+                            ),
                             fit: BoxFit.cover,
                           ),
                           height: _height * 0.2,
