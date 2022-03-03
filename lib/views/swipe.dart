@@ -8,6 +8,7 @@ import 'package:dynameet/widgets/button.dart';
 import 'package:dynameet/widgets/button_icon.dart';
 import 'package:dynameet/widgets/list_etudiant.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import '../widgets/components.dart';
 import '../widgets/list_entreprise.dart';
@@ -85,13 +86,14 @@ class _SwipePageState extends State<SwipePage> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) =>
-                                      Landing(title: "Dynameet")));
+                                  builder: (context) => Landing(
+                                      title: dotenv.env['ProjectName'] ??
+                                          "Dynameet")));
                         },
                         icon: const Icon(CarbonIcons.user_avatar,
-                            color: Colors.black87, size: 45),
-                        width: 45,
-                        height: 45,
+                            color: Colors.black87, size: 50),
+                        width: 50,
+                        height: 50,
                         padding: EdgeInsets.zero,
                         color: Colors.white,
                       )),
