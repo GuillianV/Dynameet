@@ -1,10 +1,11 @@
 import 'package:carbon_icons/carbon_icons.dart';
-import 'package:dynameet/widgets/bottom_bar.dart';
+import 'package:dynameet/views/swipe.dart';
 import 'package:dynameet/widgets/button.dart';
 import 'package:dynameet/widgets/button_icon.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/components.dart';
+import 'inscription.dart';
 
 class MatchPage extends StatefulWidget {
   const MatchPage({
@@ -18,89 +19,87 @@ class MatchPage extends StatefulWidget {
 class _MatchPageState extends State<MatchPage> {
   @override
   Widget build(BuildContext context) {
-    double _height = MediaQuery.of(context).size.height;
-    double _width = MediaQuery.of(context).size.width;
-
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          centerTitle: false,
-          leadingWidth: 0,
-          title: Container(
-              // decoration: BoxDecoration(color: Colors.red),
-              child: Row(
-            children: [
-              Row(
-                children: [
-                  const Padding(
-                      padding: EdgeInsets.only(right: 20),
-                      child: SizedBox(
-                        width: 50,
-                        child: Image(
-                            image: AssetImage("assets/images/logo_crop.png")),
-                      )),
-                  AppBarText(text: "Dynameet"),
-                  Padding(
-                      padding: EdgeInsets.only(left: 20),
-                      child: ButtonIcon(
-                        pressed: () {},
-                        icon: const Icon(CarbonIcons.user_avatar,
-                            color: Colors.black87, size: 50),
-                        width: _height * 0.058,
-                        height: _height * 0.058,
-                        padding: EdgeInsets.zero,
-                        color: Colors.white,
-                      )),
-                ],
-              ),
+      body: Center(
+        child: Container(
+          decoration: const BoxDecoration(
+              gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              Color(0xff4E71BE),
+              Color(0xff1F3C7C),
             ],
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           )),
-        ),
-        body: CustomPagePadding(
+          child: Center(
             child: Column(
-          children: [
-            const SizedBox(
-              height: 30,
-            ),
-            createRow(),
-            createRow(),
-            createRow(),
-            createRow(),
-          ],
-        )));
-    //bottomNavigationBar: const BottomBar(baseIndex: 1));
-  }
-
-  createRow() {
-    return Padding(
-        padding: EdgeInsets.symmetric(vertical: 7),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                H4(
-                  text: "Justine, 21",
-                  padding: 0,
+                const SizedBox(
+                  height: 230,
                 ),
-                TextAdd(
-                  text: "Alternance en coiffure",
-                  padding: 0,
-                )
+                const H2(text: "It's a Match !"),
+                const SizedBox(
+                  height: 40,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Transform.translate(
+                      offset: const Offset(20, 0),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(100.0),
+                        child: Image.asset(
+                          'assets/images/dylan.jpeg',
+                          width: 200.0,
+                          height: 200.0,
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                    ),
+                    Transform.translate(
+                      offset: const Offset(-20, 0),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(100.0),
+                        child: Image.asset(
+                          'assets/images/dylan.jpeg',
+                          width: 200.0,
+                          height: 200.0,
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 60,
+                ),
+                ButtonBasic(
+                  text: "Rentrer en contact",
+                  color: Color(0xffFFA857),
+                  fontColor: Colors.black87,
+                  height: 70,
+                  fontSize: 30,
+                  pressed: () {},
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                ButtonBasic(
+                  text: "Continuer",
+                  color: Color.fromARGB(255, 255, 255, 255),
+                  fontColor: Colors.black87,
+                  height: 70,
+                  fontSize: 30,
+                  pressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => SwipePage()));
+                  },
+                ),
               ],
             ),
-            ButtonBasic(
-              text: "Voir",
-              pressed: () {},
-              color: const Color(0xff1F3C7C),
-              height: 50,
-              width: 150,
-            )
-          ],
-        ));
+          ),
+        ),
+      ),
+    );
   }
 }

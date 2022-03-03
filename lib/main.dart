@@ -1,7 +1,9 @@
 import 'package:dynameet/views/landing.dart';
+import 'package:dynameet/views/match.dart';
 import 'package:dynameet/views/swipe.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 Future main() async {
   await dotenv.load(fileName: ".env");
   runApp(const MyApp());
@@ -18,7 +20,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const Landing(title:"Dynameet"),
+      home: const Landing(title: "Dynameet"),
+      // home: MatchPage(),
       debugShowCheckedModeBanner: false,
     );
   }

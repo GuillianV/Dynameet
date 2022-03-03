@@ -244,10 +244,24 @@ class _InscriptionState extends State<Inscription> {
           },
         ),
         const SizedBox(
-          height: 20,
+          height: 60,
         ),
         ButtonBasic(
           text: "... un alternant",
+          color: Color(0xff1F3C7C),
+          height: 60,
+          pressed: () {
+            setState(() {
+              isEtudiant = false;
+              stepManager.next();
+            });
+          },
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        ButtonBasic(
+          text: "... un stagiaire",
           color: Color(0xff1F3C7C),
           height: 60,
           pressed: () {

@@ -11,6 +11,10 @@ class H2 extends StatelessWidget {
         padding: EdgeInsets.symmetric(vertical: 10),
         child: Text(
           text,
+          style: GoogleFonts.montserrat(
+              fontWeight: FontWeight.bold,
+              fontSize: 50,
+              color: Color.fromARGB(255, 255, 255, 255)),
         ));
   }
 }

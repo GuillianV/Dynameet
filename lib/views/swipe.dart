@@ -1,5 +1,5 @@
 import 'package:carbon_icons/carbon_icons.dart';
-import 'package:dynameet/widgets/bottom_bar.dart';
+import 'package:dynameet/views/match.dart';
 import 'package:dynameet/widgets/button.dart';
 import 'package:dynameet/widgets/button_icon.dart';
 import 'package:flutter/material.dart';
@@ -177,7 +177,10 @@ Widget swipe_widget(context) {
                   padding: EdgeInsets.zero,
                   color: const Color(0xff1F3C7C)),
               ButtonIcon(
-                  pressed: () {},
+                  pressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => MatchPage()));
+                  },
                   icon: const Icon(
                     Icons.favorite,
                     color: Colors.white70,
@@ -204,6 +207,12 @@ Widget match(context) {
   return CustomPagePadding(
       child: Column(
     children: [
+      const SizedBox(
+        height: 30,
+      ),
+      H4(
+        text: "Mes matchs",
+      ),
       const SizedBox(
         height: 30,
       ),

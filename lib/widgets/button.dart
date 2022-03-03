@@ -7,13 +7,17 @@ class ButtonBasic extends StatefulWidget {
       required this.pressed,
       this.height,
       this.width,
-      required this.color})
+      required this.color,
+      this.fontColor = Colors.white,
+      this.fontSize = 20})
       : super(key: key);
   final String text;
   final Function() pressed;
   final double? width;
   final double? height;
   final Color color;
+  final Color fontColor;
+  final double fontSize;
 
   @override
   State<ButtonBasic> createState() => _ButtonBasicState();
@@ -30,10 +34,10 @@ class _ButtonBasicState extends State<ButtonBasic> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(widget.text,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontWeight: FontWeight.w400,
-                      fontSize: 20,
-                      color: Colors.white,
+                      fontSize: widget.fontSize,
+                      color: widget.fontColor,
                       fontFamily: "EtnaSS",
                     ))
               ],
