@@ -7,14 +7,15 @@ var UUID = const Uuid();
 List<Entreprise> listEntreprise = [];
 
 void GenerateEntreprise(){
-  listEntreprise.add(Entreprise.CreateEntreprise("Webb Company", ["loyal","dynamique"], ["jeune startup","motivation"], ["Dev web","Marketteur"]));
-  listEntreprise.add(Entreprise.CreateEntreprise("RATP", ["drole","sympathique"], ["dicipliné"], ["Réseau"]));
+  listEntreprise.add(Entreprise.CreateEntreprise("Webb Company","https://www.designwebcompany.fr/wp-content/uploads/2021/12/design-web-company.png", ["loyal","dynamique"], ["jeune startup","motivation"], ["Dev web","Marketteur"]));
+  listEntreprise.add(Entreprise.CreateEntreprise("RATP","https://www.cityride.fr/wp-content/uploads/2021/03/ratp-logo-660x340.jpg", ["drole","sympathique"], ["dicipliné"], ["Réseau"]));
 }
 
 class Entreprise {
 
   String uuid = "";
   String nom = "";
+  String photo = "";
   List<String> valeurs = [];
   List<String> apropos = [];
   List<String> missions = [];
@@ -25,9 +26,10 @@ class Entreprise {
     uuid = _uuid;
   }
  
-factory Entreprise.CreateEntreprise(String _nom,List<String> _valeurs,List<String> _apropos,List<String> _missions) {
+factory Entreprise.CreateEntreprise(String _nom, String _photo,List<String> _valeurs,List<String> _apropos,List<String> _missions) {
     Entreprise entreprise = Entreprise(UUID.v4());
     entreprise.nom = _nom;
+    entreprise.photo = _photo;
     entreprise.valeurs = _valeurs;
     entreprise.apropos = _apropos;
     entreprise.missions = _missions;
