@@ -203,7 +203,15 @@ class _SwipeWidgetState extends State<SwipeWidget> {
                           blurRadius: 10),
                     ],
                   ),
-                  child: widget.isEtudiant ? EntrepriseList() : StudentList())),
+                  child: widget.isEtudiant
+                      ? EntrepriseList(
+                          isEtudiant: isEtudiant,
+                          uuidCible: widget.uuidCible,
+                        )
+                      : StudentList(
+                          isEtudiant: isEtudiant,
+                          uuidCible: widget.uuidCible,
+                        ))),
           Center(
             child: Row(
               children: [
