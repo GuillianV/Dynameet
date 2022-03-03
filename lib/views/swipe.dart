@@ -16,10 +16,27 @@ class SwipePage extends StatefulWidget {
 }
 
 class _SwipePageState extends State<SwipePage> {
+  int _currentIndex = 0;
+  Widget? currentBody = null;
+
   @override
   Widget build(BuildContext context) {
     double _height = MediaQuery.of(context).size.height;
     double _width = MediaQuery.of(context).size.width;
+
+    void onTabTapped(int index) {
+      setState(() {
+        if (index == 0 && _currentIndex != index) {
+          currentBody = swipe_widget(context);
+        }
+
+        if (index == 1 && _currentIndex != index) {
+          currentBody = match(context);
+        }
+
+        _currentIndex = index;
+      });
+    }
 
     return Scaffold(
         appBar: AppBar(
@@ -59,77 +76,171 @@ class _SwipePageState extends State<SwipePage> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           )),
         ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            mainAxisSize: MainAxisSize.max,
-            children: <Widget>[
-              const SizedBox(
-                height: 20,
+        body: currentBody == null ? swipe_widget(context) : currentBody,
+        bottomNavigationBar: Container(
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(30), topLeft: Radius.circular(30)),
+              boxShadow: [
+                BoxShadow(
+                    color: Colors.black38, spreadRadius: 0, blurRadius: 10),
+              ],
+            ),
+            child: ClipRRect(
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(30.0),
+                topRight: Radius.circular(30.0),
               ),
-              Padding(
-                  padding: EdgeInsets.only(bottom: 30),
-                  child: Container(
-                      width: _width * 0.9,
-                      height: _height * 0.61,
-                      decoration: const BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.all(Radius.circular(30)),
-                        boxShadow: [
-                          BoxShadow(
-                              color: Colors.black38,
-                              offset: Offset(4, 4),
-                              spreadRadius: 0,
-                              blurRadius: 10),
-                        ],
-                      ),
-                      child: Center(
-                        child: Text("Hello"),
-                      ))),
-              Center(
-                child: Row(
-                  children: [
-                    ButtonIcon(
-                        pressed: () {},
-                        icon: const Icon(
-                          Icons.close,
-                          color: Colors.white70,
-                          size: 40,
-                        ),
-                        width: _height * 0.1,
-                        height: _height * 0.1,
-                        padding: EdgeInsets.zero,
-                        color: const Color(0xffE65B6A)),
-                    ButtonIcon(
-                        pressed: () {},
-                        icon: const Icon(
-                          Icons.star,
-                          color: Colors.white70,
-                          size: 40,
-                        ),
-                        width: _height * 0.1,
-                        height: _height * 0.1,
-                        padding: EdgeInsets.zero,
-                        color: const Color(0xff1F3C7C)),
-                    ButtonIcon(
-                        pressed: () {},
-                        icon: const Icon(
-                          Icons.favorite,
-                          color: Colors.white70,
-                          size: 40,
-                        ),
-                        width: _height * 0.1,
-                        height: _height * 0.1,
-                        padding: EdgeInsets.zero,
-                        color: const Color(0xffF1AC60))
+              child: BottomNavigationBar(
+                backgroundColor: Color(0xffFFA857),
+                selectedItemColor: Color(0xff1F3C7C),
+                type: BottomNavigationBarType.fixed,
+                onTap: onTabTapped,
+                currentIndex: _currentIndex,
+                showSelectedLabels: false,
+                showUnselectedLabels: false,
+                items: const [
+                  BottomNavigationBarItem(
+                    icon: Icon(
+                      Icons.home,
+                      size: 32,
+                    ),
+                    label: 'Home',
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(
+                      Icons.menu,
+                      size: 32,
+                    ),
+                    label: 'Matchs',
+                  ),
+                ],
+              ),
+            )));
+  }
+}
+
+Widget swipe_widget(context) {
+  double _height = MediaQuery.of(context).size.height;
+  double _width = MediaQuery.of(context).size.width;
+
+  return Center(
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      mainAxisSize: MainAxisSize.max,
+      children: <Widget>[
+        const SizedBox(
+          height: 20,
+        ),
+        Padding(
+            padding: EdgeInsets.only(bottom: 30),
+            child: Container(
+                width: _width * 0.9,
+                height: _height * 0.61,
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.all(Radius.circular(30)),
+                  boxShadow: [
+                    BoxShadow(
+                        color: Colors.black38,
+                        offset: Offset(4, 4),
+                        spreadRadius: 0,
+                        blurRadius: 10),
                   ],
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 ),
+                child: Center(
+                  child: Text("Hello"),
+                ))),
+        Center(
+          child: Row(
+            children: [
+              ButtonIcon(
+                  pressed: () {},
+                  icon: const Icon(
+                    Icons.close,
+                    color: Colors.white70,
+                    size: 40,
+                  ),
+                  width: _height * 0.1,
+                  height: _height * 0.1,
+                  padding: EdgeInsets.zero,
+                  color: const Color(0xffE65B6A)),
+              ButtonIcon(
+                  pressed: () {},
+                  icon: const Icon(
+                    Icons.star,
+                    color: Colors.white70,
+                    size: 40,
+                  ),
+                  width: _height * 0.1,
+                  height: _height * 0.1,
+                  padding: EdgeInsets.zero,
+                  color: const Color(0xff1F3C7C)),
+              ButtonIcon(
+                  pressed: () {},
+                  icon: const Icon(
+                    Icons.favorite,
+                    color: Colors.white70,
+                    size: 40,
+                  ),
+                  width: _height * 0.1,
+                  height: _height * 0.1,
+                  padding: EdgeInsets.zero,
+                  color: const Color(0xffF1AC60))
+            ],
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          ),
+        )
+      ],
+    ),
+  );
+}
+
+Widget match(context) {
+  double _height = MediaQuery.of(context).size.height;
+  double _width = MediaQuery.of(context).size.width;
+
+  return CustomPagePadding(
+      child: Column(
+    children: [
+      const SizedBox(
+        height: 30,
+      ),
+      createRow(),
+      createRow(),
+      createRow(),
+      createRow(),
+    ],
+  ));
+}
+
+createRow() {
+  return Padding(
+      padding: EdgeInsets.symmetric(vertical: 7),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              H4(
+                text: "Justine, 21",
+                padding: 0,
+              ),
+              TextAdd(
+                text: "Alternance en coiffure",
+                padding: 0,
               )
             ],
           ),
-        ),
-        bottomNavigationBar: const BottomBar(baseIndex: 0));
-  }
+          ButtonBasic(
+            text: "Voir",
+            pressed: () {},
+            color: const Color(0xff1F3C7C),
+            height: 50,
+            width: 150,
+          )
+        ],
+      ));
 }

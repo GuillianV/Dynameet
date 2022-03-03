@@ -70,8 +70,8 @@ class _MatchPageState extends State<MatchPage> {
             createRow(),
             createRow(),
           ],
-        )),
-        bottomNavigationBar: const BottomBar(baseIndex: 1));
+        )));
+    //bottomNavigationBar: const BottomBar(baseIndex: 1));
   }
 
   createRow() {
