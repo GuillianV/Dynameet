@@ -27,6 +27,7 @@ class Entreprise {
  
 factory Entreprise.CreateEntreprise(String _nom,List<String> _valeurs,List<String> _apropos,List<String> _missions) {
     Entreprise entreprise = Entreprise(UUID.v4());
+    entreprise.nom = _nom;
     entreprise.valeurs = _valeurs;
     entreprise.apropos = _apropos;
     entreprise.missions = _missions;

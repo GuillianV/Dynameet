@@ -1,4 +1,6 @@
 import 'package:carbon_icons/carbon_icons.dart';
+import 'package:dynameet/models/entreprise.dart';
+import 'package:dynameet/models/etudiant.dart';
 import 'package:dynameet/widgets/bottom_bar.dart';
 import 'package:dynameet/widgets/button.dart';
 import 'package:dynameet/widgets/button_icon.dart';
@@ -121,6 +123,9 @@ class _SwipePageState extends State<SwipePage> {
 }
 
 Widget swipe_widget(context) {
+  GenerateEntreprise();
+  GenerateEtudiant();
+
   double _height = MediaQuery.of(context).size.height;
   double _width = MediaQuery.of(context).size.width;
 
@@ -133,24 +138,44 @@ Widget swipe_widget(context) {
           height: 20,
         ),
         Padding(
-            padding: EdgeInsets.only(bottom: 30),
-            child: Container(
-                width: _width * 0.9,
-                height: _height * 0.61,
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.all(Radius.circular(30)),
-                  boxShadow: [
-                    BoxShadow(
-                        color: Colors.black38,
-                        offset: Offset(4, 4),
-                        spreadRadius: 0,
-                        blurRadius: 10),
-                  ],
-                ),
-                child: Center(
-                  child: Text("Hello"),
-                ))),
+          padding: const EdgeInsets.only(bottom: 30),
+          child: Container(
+              width: _width * 0.9,
+              height: _height * 0.61,
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.all(Radius.circular(30)),
+                boxShadow: [
+                  BoxShadow(
+                      color: Colors.black38,
+                      offset: Offset(4, 4),
+                      spreadRadius: 0,
+                      blurRadius: 10),
+                ],
+              ),
+              child: Stack(
+                children: List.generate(
+                    listEtudiant.length,
+                    (index) => Container(
+                          child: Center(
+                              child: Column(
+                            children: [
+                              Image.network(listEtudiant[index].photo),
+                              Container(
+                                child: Column(children: [
+                                  Text(listEtudiant[index].nom +", " +
+                                  listEtudiant[index].age),
+                                  Text(listEtudiant[index].titreDescription),
+                                  Container(
+                                    child: Text(listEtudiant[index].description),
+                                  )
+                                ]),
+                              )
+                            ],
+                          )),
+                        )),
+              )),
+        ),
         Center(
           child: Row(
             children: [
